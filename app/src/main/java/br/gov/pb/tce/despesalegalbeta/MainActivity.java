@@ -11,6 +11,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
 
+    //cria variaveis
     private FirebaseAuth firebaseAuth;
 
     private ImageView botaoSair;
@@ -20,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //instancia autenticador
         firebaseAuth = FirebaseAuth.getInstance();
 
         botaoSair= (ImageView) findViewById(R.id.btSairID);
@@ -27,8 +29,8 @@ public class MainActivity extends AppCompatActivity {
         botaoSair.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this,LoginActivity.class));
-                firebaseAuth.signOut();
+                startActivity(new Intent(MainActivity.this,LoginActivity.class));       //volta pra tela de login
+                firebaseAuth.signOut();                                                             //desvalida a sessao
             }
         });
 

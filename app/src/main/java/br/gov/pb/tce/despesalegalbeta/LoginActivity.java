@@ -17,6 +17,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class LoginActivity extends AppCompatActivity {
 
+    //criando variaveis
     FirebaseAuth firebaseAuth;
 
     private Button botaoLogin;
@@ -29,8 +30,9 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        //instancia o autenticador
         firebaseAuth = FirebaseAuth.getInstance();
-
+        //verifica se ja existe validação, caso sim ja vai pra tela principal
         if(firebaseAuth.getCurrentUser() != null){
             startActivity(new Intent(LoginActivity.this,MainActivity.class));
         }else{
@@ -41,6 +43,7 @@ public class LoginActivity extends AppCompatActivity {
         campoSenha = (EditText) findViewById(R.id.senhaID);
         botaoLogin = (Button) findViewById(R.id.btLoginID);
 
+        //gambiarra
         final String email = "@gmail.com";
 
         botaoLogin.setOnClickListener(new View.OnClickListener() {
@@ -48,19 +51,23 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 if((campoEmail.getText().toString().equals(""))||(campoSenha.getText().toString().equals(""))){
+                    //evita crash caso aperte pra logar sem preencher os campos
+                    //e tambem exibe uma mensagem avisando isso
                     Toast.makeText(LoginActivity.this, "VERIFIQUE OS CAMPOS DIGITADOS", Toast.LENGTH_SHORT).show();
                 }else{
+                    //gambiarra de validação
                     firebaseAuth.signInWithEmailAndPassword(campoEmail.getText().toString()+email,campoSenha.getText().toString()).
                             addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
 
                                     if (task.isSuccessful()){
-
+                                        //chama a main
                                         startActivity(new Intent(LoginActivity.this,MainActivity.class));
                                         Log.i("Signin","TESTE OK");
 
                                     }else{
+                                        //exibe erro caso nao seja validado por dados incorretos
                                         Log.i("Signin","TESTE ERRO");
                                         Toast.makeText(LoginActivity.this,"E-mail ou Senha incorretos",Toast.LENGTH_LONG).show();
                                     }
