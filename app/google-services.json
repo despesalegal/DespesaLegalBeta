@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1049426926853",
+    "firebase_url": "https://despesa-legal-beta.firebaseio.com",
+    "project_id": "despesa-legal-beta",
+    "storage_bucket": "despesa-legal-beta.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1049426926853:android:a273bfffb3dc9902",
+        "android_client_info": {
+          "package_name": "br.gov.pb.tce.despesalegalbeta"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1049426926853-gatk77qtclmpfhib0vm6n942kaqbnqp1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "br.gov.pb.tce.despesalegalbeta",
+            "certificate_hash": "beafe7d258b9d7a236bb8f2bf7582852bdf0c589"
+          }
+        },
+        {
+          "client_id": "1049426926853-dhvj4h9qokfmc3nqbgqcsasamdosj6ho.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDIKc9KxgzRnMpfjJUfBSoDgC5BOoEATN0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1049426926853-dhvj4h9qokfmc3nqbgqcsasamdosj6ho.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
