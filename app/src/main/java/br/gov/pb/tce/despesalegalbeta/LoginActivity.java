@@ -41,24 +41,35 @@ public class LoginActivity extends AppCompatActivity {
         campoSenha = (EditText) findViewById(R.id.senhaID);
         botaoLogin = (Button) findViewById(R.id.btLoginID);
 
+        final String email = "@gmail.com";
+
         botaoLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                firebaseAuth.signInWithEmailAndPassword(campoEmail.getText().toString(),campoSenha.getText().toString()).
-                        addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
 
-                                if (task.isSuccessful()){
-                                    startActivity(new Intent(LoginActivity.this,MainActivity.class));
-                                    Log.i("Signin","TESTE OK");
-                                }else{
-                                    Log.i("Signin","TESTE ERRO");
-                                    Toast.makeText(LoginActivity.this,"ERRO AO AUTENTICAR",Toast.LENGTH_LONG).show();
+                if((campoEmail.getText().toString().equals(""))||(campoSenha.getText().toString().equals(""))){
+                    Toast.makeText(LoginActivity.this, "VERIFIQUE OS CAMPOS DIGITADOS", Toast.LENGTH_SHORT).show();
+                }else{
+                    firebaseAuth.signInWithEmailAndPassword(campoEmail.getText().toString()+email,campoSenha.getText().toString()).
+                            addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+
+                                    if (task.isSuccessful()){
+
+                                        startActivity(new Intent(LoginActivity.this,MainActivity.class));
+                                        Log.i("Signin","TESTE OK");
+
+                                    }else{
+                                        Log.i("Signin","TESTE ERRO");
+                                        Toast.makeText(LoginActivity.this,"E-mail ou Senha incorretos",Toast.LENGTH_LONG).show();
+                                    }
                                 }
-                            }
-                        });
-            }
+                            });
+                }
+                }
+
+
         });
 
 

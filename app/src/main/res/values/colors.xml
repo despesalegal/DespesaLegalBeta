@@ -2,5 +2,10 @@
 <resources>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#fcc700</color>
+    <color name="yellowText">#fcc700</color>
+    <color name="primaryDarkColor">#007039</color>
+    <color name="primaryColor">#018242</color>
+    <color name="darkButtonColor">#007039</color>
+    <color name="pretoTexto">#000000</color>
 </resources>
