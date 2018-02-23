@@ -2,6 +2,7 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainBgID"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg"
@@ -34,5 +35,14 @@
         android:text="Tirar Foto"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/photo"
+        android:layout_width="386dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        tools:layout_editor_absoluteX="-2dp"
+        tools:layout_editor_absoluteY="140dp" />
+
 
 </android.support.constraint.ConstraintLayout>
