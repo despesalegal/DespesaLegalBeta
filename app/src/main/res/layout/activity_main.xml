@@ -24,51 +24,15 @@
         app:layout_constraintVertical_bias="0.981"
         app:srcCompat="@drawable/sair2" />
 
-    <ImageView
-        android:id="@+id/imageView6"
-        android:layout_width="@dimen/dim_largura_bt_menu"
-        android:layout_height="58dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="128dp"
+    <Button
+        android:id="@+id/btCameraID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="148dp"
+        android:layout_marginTop="64dp"
         android:contentDescription="@string/desc_bt"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/btinicio" />
-
-    <ImageView
-        android:id="@+id/imageView7"
-        android:layout_width="@dimen/dim_largura_bt_menu"
-        android:layout_height="67dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="8dp"
-        android:contentDescription="@string/desc_bt"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView6"
-        app:srcCompat="@drawable/btmeio" />
-
-    <ImageView
-        android:id="@+id/imageView8"
-        android:layout_width="@dimen/dim_largura_bt_menu"
-        android:layout_height="61dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:contentDescription="@string/desc_bt"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView7"
-        app:srcCompat="@drawable/btfinal" />
-
-    <ImageView
-        android:id="@+id/imageView9"
-        android:layout_width="@dimen/dim_largura_bt_menu"
-        android:layout_height="56dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="4dp"
-        android:contentDescription="@string/desc_bt"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView8"
-        app:srcCompat="@drawable/btsinc" />
+        android:text="Tirar Foto"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

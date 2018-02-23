@@ -15,6 +15,7 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
 
     private ImageView botaoSair;
+    private Button botaoCamera;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,12 +26,20 @@ public class MainActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
 
         botaoSair= (ImageView) findViewById(R.id.btSairID);
+        botaoCamera = (Button) findViewById(R.id.btCameraID);
 
         botaoSair.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this,LoginActivity.class));       //volta pra tela de login
                 firebaseAuth.signOut();                                                             //desvalida a sessao
+            }
+        });
+
+        botaoCamera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
 

@@ -67,7 +67,7 @@ public class LoginActivity extends AppCompatActivity {
                                         Log.i("Signin","TESTE OK");
 
                                     }else{
-                                        //exibe erro caso nao seja validado por dados incorretos
+                                        //exibe mensagem de erro caso nao seja validado
                                         Log.i("Signin","TESTE ERRO");
                                         Toast.makeText(LoginActivity.this,"E-mail ou Senha incorretos",Toast.LENGTH_LONG).show();
                                     }
