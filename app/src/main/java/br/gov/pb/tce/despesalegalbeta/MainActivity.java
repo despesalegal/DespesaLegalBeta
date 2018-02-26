@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     //variaveis de localização
     private GoogleApiClient googleApiClient;
     private LocationRequest locationRequest;
-    private TextView localizacao;
+    //private TextView localizacao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,10 +58,12 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
         //instancia autenticador
         firebaseAuth = FirebaseAuth.getInstance();
+
+        //instancia demais objetos
         photo = (ImageView) findViewById(R.id.photo);
         botaoSair = (ImageView) findViewById(R.id.btSairID);
         botaoCamera = (Button) findViewById(R.id.btCameraID);
-        localizacao = (TextView) findViewById(R.id.locationID);
+        //localizacao = (TextView) findViewById(R.id.locationID);
 
         botaoSair.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,7 +135,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
     @Override
     public void onLocationChanged(Location location) {
-        localizacao.setText("Atualização de localização " + location.toString());
+        //localizacao.setText("Atualização de localização " + location.toString());
     }
 
     @Override
@@ -190,6 +192,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
     @Override
     public void onConnectionSuspended(int i) {
+        googleApiClient.connect();
 
     }
 
