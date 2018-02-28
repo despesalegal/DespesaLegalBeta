@@ -2,6 +2,8 @@ package br.gov.pb.tce.despesalegalbeta;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.location.Location;
 import android.location.LocationListener;
@@ -12,10 +14,13 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -42,7 +47,14 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     //variaveis de localização
     private GoogleApiClient googleApiClient;
     private LocationRequest locationRequest;
-    //private TextView localizacao;
+    
+    private TextView latitudeT;
+    private TextView longitudeT;
+    private TextView altitudeT;
+    private TextView dataT;
+
+    //variaveis de banco
+    private SQLiteDatabase bancoDados;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,11 +71,36 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         //instancia autenticador
         firebaseAuth = FirebaseAuth.getInstance();
 
+        //cria banco
+        bancoDados = openOrCreateDatabase("db_DespesaLegalBeta", MODE_PRIVATE, null);
+
+        //cria tabela
+        String sql = "CREATE TABLE IF NOT EXISTS tb_dadosFoto (" +
+                "_id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "nomeFoto TEXT," +
+                "latitudeF TEXT," +
+                "longitudeF TEXT," +
+                "altitudeF TEXT," +
+                "dataF TEXT," +
+                "numObra INTEGER," +
+                "numMedicao INTEGER," +
+                "anguloF INTEGER" +
+                ")";
+        bancoDados.execSQL(sql);
+
+        //recuperar dados banco
+       // Cursor curso = bancoDados.rawQuery("SELECT * FROM tb_dadosFoto")
+
+
         //instancia demais objetos
         photo = (ImageView) findViewById(R.id.photo);
         botaoSair = (ImageView) findViewById(R.id.btSairID);
         botaoCamera = (Button) findViewById(R.id.btCameraID);
-        //localizacao = (TextView) findViewById(R.id.locationID);
+        latitudeT = (TextView)findViewById(R.id.latitudeID);
+        longitudeT = (TextView) findViewById(R.id.longitudeID);
+        altitudeT = (TextView) findViewById(R.id.altitudeID);
+        dataT = (TextView) findViewById(R.id.dataID);
+
 
         botaoSair.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,6 +144,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
             SaveImage(imageBitmap);
+            //salvarDados();
         }
     }
 
@@ -131,6 +169,36 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         }
         return file.getAbsolutePath();
     }
+
+    private void salvarDados() {
+        /*//teste
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        Location ultimoLocal = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
+
+        String latitudef = String.valueOf(ultimoLocal.getLatitude());
+        String longitudef = String.valueOf(ultimoLocal.getLongitude());
+        String altitudef = String.valueOf(ultimoLocal.getAltitude());
+        DateFormat formatacaoData = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        Date date = new Date(ultimoLocal.getTime());
+        String dataFormatada = formatacaoData.format(date);*/
+
+
+
+        bancoDados.execSQL("INSERT INTO tb_dadosFoto (nomeFoto,latitudef,longitudeF,altitudeF,dataF,numObra,NumMedicao,angulo)" +
+                "VALUES(teste,teste,teste,teste,teste,1,2,3)");
+        //Toast.makeText(MainActivity.this,"SUCESSO",Toast.LENGTH_LONG).show();
+    }
+
+
 
 
     @Override
@@ -175,9 +243,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         Location ultimaLocalizacao = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
 
         //captura dados de localização
-        double latitude = ultimaLocalizacao.getLatitude();
-        double longitude = ultimaLocalizacao.getLongitude();
-        double altitude = ultimaLocalizacao.getAltitude();
+        String latitude = String.valueOf(ultimaLocalizacao.getLatitude());
+        String longitude = String.valueOf(ultimaLocalizacao.getLongitude());
+        String altitude = String.valueOf(ultimaLocalizacao.getAltitude());
 
         //Formata data e hora
         DateFormat formatacaoData = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
@@ -185,7 +253,10 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         String dataFormatada = formatacaoData.format(date);
 
         //testes em uma textview
-        //localizacao.setText(dataFormatada);
+        latitudeT.setText(latitude);
+        longitudeT.setText(longitude);
+        altitudeT.setText(altitude);
+        dataT.setText(dataFormatada);
 
 
     }
