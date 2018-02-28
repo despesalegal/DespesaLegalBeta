@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     //variaveis de localização
     private GoogleApiClient googleApiClient;
     private LocationRequest locationRequest;
-    
+
     private TextView latitudeT;
     private TextView longitudeT;
     private TextView altitudeT;
