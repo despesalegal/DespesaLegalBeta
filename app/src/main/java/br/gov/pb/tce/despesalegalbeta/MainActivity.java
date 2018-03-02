@@ -53,9 +53,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     private TextView altitudeT;
     private TextView dataT;
 
-    //variaveis de banco
-    private SQLiteDatabase bancoDados;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,26 +67,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
         //instancia autenticador
         firebaseAuth = FirebaseAuth.getInstance();
-
-        //cria banco
-        bancoDados = openOrCreateDatabase("db_DespesaLegalBeta", MODE_PRIVATE, null);
-
-        //cria tabela
-        String sql = "CREATE TABLE IF NOT EXISTS tb_dadosFoto (" +
-                "_id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                "nomeFoto TEXT," +
-                "latitudeF TEXT," +
-                "longitudeF TEXT," +
-                "altitudeF TEXT," +
-                "dataF TEXT," +
-                "numObra INTEGER," +
-                "numMedicao INTEGER," +
-                "anguloF INTEGER" +
-                ")";
-        bancoDados.execSQL(sql);
-
-        //recuperar dados banco
-       // Cursor curso = bancoDados.rawQuery("SELECT * FROM tb_dadosFoto")
 
 
         //instancia demais objetos
@@ -144,7 +121,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
             SaveImage(imageBitmap);
-            //salvarDados();
+
         }
     }
 
@@ -169,37 +146,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         }
         return file.getAbsolutePath();
     }
-
-    private void salvarDados() {
-        /*//teste
-        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
-        Location ultimoLocal = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
-
-        String latitudef = String.valueOf(ultimoLocal.getLatitude());
-        String longitudef = String.valueOf(ultimoLocal.getLongitude());
-        String altitudef = String.valueOf(ultimoLocal.getAltitude());
-        DateFormat formatacaoData = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        Date date = new Date(ultimoLocal.getTime());
-        String dataFormatada = formatacaoData.format(date);*/
-
-
-
-        bancoDados.execSQL("INSERT INTO tb_dadosFoto (nomeFoto,latitudef,longitudeF,altitudeF,dataF,numObra,NumMedicao,angulo)" +
-                "VALUES(teste,teste,teste,teste,teste,1,2,3)");
-        //Toast.makeText(MainActivity.this,"SUCESSO",Toast.LENGTH_LONG).show();
-    }
-
-
-
 
     @Override
     public void onLocationChanged(Location location) {
@@ -257,7 +203,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         longitudeT.setText(longitude);
         altitudeT.setText(altitude);
         dataT.setText(dataFormatada);
-
 
     }
 
