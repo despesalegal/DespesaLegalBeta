@@ -140,7 +140,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         if (!myDir.exists())
             myDir.mkdirs();
         nomeArquivo =  "IMG_" + dataFormatada + ".jpg";
-        //foto.nomeFoto = nomeArquivo;
+        foto.nomeFoto = nomeArquivo;
         File file = new File(myDir, nomeArquivo);
         if (file.exists()) file.delete();
         try {
@@ -230,16 +230,20 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         Date date = new Date(ultimaLocalizacao.getTime());
         dataFormatada = formatacaoData.format(date);
 
+        DateFormat formatacaoDataDB = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        Date dateDB = new Date(ultimaLocalizacao.getTime());
+        String dataFormatadaDB = formatacaoDataDB.format(dateDB);
+
         foto.latitudeFoto = latitude;
         foto.longitudeFoto = longitude;
         foto.altitudeFoto = altitude;
-        foto.dataFoto = dataFormatada;
+        foto.dataFoto = dataFormatadaDB;
 
         //testes em uma textview
         latitudeT.setText(latitude);
         longitudeT.setText(longitude);
         altitudeT.setText(altitude);
-        dataT.setText(dataFormatada);
+        dataT.setText(dataFormatadaDB);
 
     }
 
