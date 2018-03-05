@@ -47,11 +47,17 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     //variaveis de localização
     private GoogleApiClient googleApiClient;
     private LocationRequest locationRequest;
+    private static String nomeArquivo;
+    private static String dataFormatada;
 
     private TextView latitudeT;
     private TextView longitudeT;
     private TextView altitudeT;
     private TextView dataT;
+
+    //teste banco
+    BancoDadosController bancoDadosController;
+    static Foto foto = new Foto();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,10 +79,12 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         photo = (ImageView) findViewById(R.id.photo);
         botaoSair = (ImageView) findViewById(R.id.btSairID);
         botaoCamera = (Button) findViewById(R.id.btCameraID);
-        latitudeT = (TextView)findViewById(R.id.latitudeID);
+        latitudeT = (TextView) findViewById(R.id.latitudeID);
         longitudeT = (TextView) findViewById(R.id.longitudeID);
         altitudeT = (TextView) findViewById(R.id.altitudeID);
         dataT = (TextView) findViewById(R.id.dataID);
+
+        bancoDadosController = new BancoDadosController(this);
 
 
         botaoSair.setOnClickListener(new View.OnClickListener() {
@@ -121,6 +129,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
             SaveImage(imageBitmap);
+            bancoDadosController.salvar(foto);
 
         }
     }
@@ -130,11 +139,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         File myDir = new File(root + "/Despesa Legal");
         if (!myDir.exists())
             myDir.mkdirs();
-        Random generator = new Random();
-        int n = 10000;
-        n = generator.nextInt();
-        String fname = "Image-" + n + ".jpg";
-        File file = new File(myDir, fname);
+        nomeArquivo =  "IMG_" + dataFormatada + ".jpg";
+        //foto.nomeFoto = nomeArquivo;
+        File file = new File(myDir, nomeArquivo);
         if (file.exists()) file.delete();
         try {
             FileOutputStream out = new FileOutputStream(file);
@@ -149,7 +156,24 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
     @Override
     public void onLocationChanged(Location location) {
-        //localizacao.setText("Atualização de localização " + location.toString());
+
+       /*
+        //teste banco - gps att
+        String latitudeFoto = String.valueOf(location.getLatitude());
+        String longitudeFoto = String.valueOf(location.getLongitude());
+        String altitudeFoto = String.valueOf(location.getAltitude());
+
+        //Formata data e hora
+        DateFormat formatacaoData = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        Date date = new Date(location.getTime());
+        dataFormatada = formatacaoData.format(date);
+
+        foto.latitudeFoto = latitudeFoto;
+        foto.longitudeFoto = longitudeFoto;
+        foto.altitudeFoto = altitudeFoto;
+        foto.dataFoto = dataFormatada;*/
+
+
     }
 
     @Override
@@ -171,7 +195,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     public void onConnected(@Nullable Bundle bundle) {
         locationRequest = LocationRequest.create();
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-        locationRequest.setInterval(1000);
+        locationRequest.setInterval(10*1000);
 
         //bloco recomendado pelo android studio
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -184,6 +208,14 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
+       /*
+       try{
+            LocationServices.FusedLocationApi.requestLocationUpdates(googleApiClient,locationRequest, (com.google.android.gms.location.LocationListener) this);
+        }catch (Exception e){
+            e.printStackTrace();
+        }*/
+
+
         //captura ultima localização conhecida
 
         Location ultimaLocalizacao = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
@@ -194,9 +226,14 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         String altitude = String.valueOf(ultimaLocalizacao.getAltitude());
 
         //Formata data e hora
-        DateFormat formatacaoData = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        DateFormat formatacaoData = new SimpleDateFormat("dd-MM-yyyy HH-mm-ss");
         Date date = new Date(ultimaLocalizacao.getTime());
-        String dataFormatada = formatacaoData.format(date);
+        dataFormatada = formatacaoData.format(date);
+
+        foto.latitudeFoto = latitude;
+        foto.longitudeFoto = longitude;
+        foto.altitudeFoto = altitude;
+        foto.dataFoto = dataFormatada;
 
         //testes em uma textview
         latitudeT.setText(latitude);

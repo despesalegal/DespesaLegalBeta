@@ -18,6 +18,11 @@ public class Foto implements Serializable {
     public int numMedicao;
     public int angulo;
 
+    public Foto() {
+    }
+
+
+
     public Foto(String nomeFoto){
         this.nomeFoto = nomeFoto;
     }
@@ -40,6 +45,8 @@ public class Foto implements Serializable {
         this.numMedicao = numMedicao;
         this.angulo = angulo;
     }
+
+
 
     @Override
     public String toString(){

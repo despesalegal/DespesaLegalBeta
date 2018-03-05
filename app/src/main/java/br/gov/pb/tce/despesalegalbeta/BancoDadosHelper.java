@@ -10,8 +10,9 @@ import android.content.Context;
 
 public class BancoDadosHelper extends SQLiteOpenHelper {
 
-    private static final String NOME_BANCO = "db_DespesaLegal";
+    private static final String NOME_BANCO = "DespesaLegalBeta.db";
     private static final int VERSAO_BANCO = 1;
+    private static final String DB_PATH = "/data/data/br.gov.pb.tce.despesalegalbeta/databases/";
 
     public static final String TABELA_FOTO = "tb_dadosFoto";
     public static final String COLUNA_ID = "_id";
@@ -32,7 +33,11 @@ public class BancoDadosHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE "+TABELA_FOTO+"("+
                 COLUNA_ID+" INTEGER PRIMARY KEY AUTOINCREMENT,"+
-                COLUNA_NOME_FOTO+" TEXT NOT NULL)" );
+                COLUNA_NOME_FOTO+" TEXT NOT NULL,"+
+                COLUNA_LATITUDE+" TEXT, "+
+                COLUNA_LONGITUDE+" TEXT, "+
+                COLUNA_ALTITUDE+" TEXT, "+
+                COLUNA_DATA_HORA+" TEXT )" );
 
     }
 

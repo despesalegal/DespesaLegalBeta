@@ -26,6 +26,11 @@ public class BancoDadosController {
 
         ContentValues cv = new ContentValues();
         cv.put(BancoDadosHelper.COLUNA_NOME_FOTO,foto.nomeFoto);
+        cv.put(BancoDadosHelper.COLUNA_LATITUDE,foto.latitudeFoto);
+        cv.put(BancoDadosHelper.COLUNA_LONGITUDE,foto.longitudeFoto);
+        cv.put(BancoDadosHelper.COLUNA_ALTITUDE,foto.altitudeFoto);
+        cv.put(BancoDadosHelper.COLUNA_DATA_HORA,foto.dataFoto);
+
 
         long id = db.insert(BancoDadosHelper.TABELA_FOTO,null,cv);
         if(id != -1){
