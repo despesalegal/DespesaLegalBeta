@@ -2,8 +2,6 @@ package br.gov.pb.tce.despesalegalbeta;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.location.Location;
 import android.location.LocationListener;
@@ -14,13 +12,9 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.SimpleCursorAdapter;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -28,12 +22,12 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Random;
 
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener,
         GoogleApiClient.ConnectionCallbacks, LocationListener {
@@ -42,7 +36,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     private FirebaseAuth firebaseAuth;
     static final int REQUEST_IMAGE_CAPTURE = 1;
     private ImageView botaoSair, photo;
-    private Button botaoCamera, btPhoto;
+    private Button botaoCamera;
 
     //variaveis de localização
     private GoogleApiClient googleApiClient;
@@ -50,10 +44,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     private static String nomeArquivo;
     private static String dataFormatada;
 
-    private TextView latitudeT;
-    private TextView longitudeT;
-    private TextView altitudeT;
-    private TextView dataT;
+
 
     //teste banco
     BancoDadosController bancoDadosController;
@@ -78,11 +69,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         //instancia demais objetos
         photo = (ImageView) findViewById(R.id.photo);
         botaoSair = (ImageView) findViewById(R.id.btSairID);
-        botaoCamera = (Button) findViewById(R.id.btCameraID);
-        latitudeT = (TextView) findViewById(R.id.latitudeID);
-        longitudeT = (TextView) findViewById(R.id.longitudeID);
-        altitudeT = (TextView) findViewById(R.id.altitudeID);
-        dataT = (TextView) findViewById(R.id.dataID);
+        botaoCamera = (Button) findViewById(R.id.bt_inicioID);
 
         bancoDadosController = new BancoDadosController(this);
 
@@ -129,6 +116,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
             SaveImage(imageBitmap);
+            converteFoto(imageBitmap);
             bancoDadosController.salvar(foto);
 
         }
@@ -195,7 +183,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     public void onConnected(@Nullable Bundle bundle) {
         locationRequest = LocationRequest.create();
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-        locationRequest.setInterval(10*1000);
+        locationRequest.setInterval(1000);
 
         //bloco recomendado pelo android studio
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -239,11 +227,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         foto.altitudeFoto = altitude;
         foto.dataFoto = dataFormatadaDB;
 
-        //testes em uma textview
-        latitudeT.setText(latitude);
-        longitudeT.setText(longitude);
-        altitudeT.setText(altitude);
-        dataT.setText(dataFormatadaDB);
 
     }
 
@@ -257,4 +240,14 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
     }
+
+
+    public static byte[] converteFoto(Bitmap bitmap){
+        foto.imagem = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG,0,foto.imagem);
+        return foto.imagem.toByteArray();
+    }
+
+
+
 }

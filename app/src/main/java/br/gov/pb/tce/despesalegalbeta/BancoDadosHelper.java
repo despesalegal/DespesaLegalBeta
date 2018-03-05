@@ -4,6 +4,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.content.Context;
 
+import java.io.ByteArrayOutputStream;
+
 /**
  * Created by JoséHenrique on 01/03/2018.
  */
@@ -24,6 +26,7 @@ public class BancoDadosHelper extends SQLiteOpenHelper {
     public static final String COLUNA_NUM_OBRA = "num_obra";
     public static final String COLUNA_NUM_MEDICAO = "num_medicao";
     public static final String COLUNA_ANGULO = "angulo";
+    public static final String COLUNA_IMG_CRIP = "imagem";
 
     public BancoDadosHelper(Context context) {
         super(context, NOME_BANCO, null, VERSAO_BANCO);
@@ -37,7 +40,8 @@ public class BancoDadosHelper extends SQLiteOpenHelper {
                 COLUNA_LATITUDE+" TEXT, "+
                 COLUNA_LONGITUDE+" TEXT, "+
                 COLUNA_ALTITUDE+" TEXT, "+
-                COLUNA_DATA_HORA+" TEXT )" );
+                COLUNA_DATA_HORA+" TEXT, "+
+                COLUNA_IMG_CRIP+" BLOB )" );
 
     }
 

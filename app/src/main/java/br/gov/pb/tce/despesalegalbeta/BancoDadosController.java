@@ -30,6 +30,7 @@ public class BancoDadosController {
         cv.put(BancoDadosHelper.COLUNA_LONGITUDE,foto.longitudeFoto);
         cv.put(BancoDadosHelper.COLUNA_ALTITUDE,foto.altitudeFoto);
         cv.put(BancoDadosHelper.COLUNA_DATA_HORA,foto.dataFoto);
+        cv.put(BancoDadosHelper.COLUNA_IMG_CRIP, String.valueOf(foto.imagem));
 
 
         long id = db.insert(BancoDadosHelper.TABELA_FOTO,null,cv);
@@ -55,11 +56,12 @@ public class BancoDadosController {
     }
 
     public void salvar(Foto foto){
-        if(foto.id == 0){
+        inserir(foto);
+       /* if(foto.id == 0){
             inserir(foto);
         }else{
             atualizar(foto);
-        }
+        }*/
     }
 
     public int excluir(Foto foto){

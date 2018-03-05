@@ -1,5 +1,6 @@
 package br.gov.pb.tce.despesalegalbeta;
 
+import java.io.ByteArrayOutputStream;
 import java.io.Serializable;
 
 /**
@@ -17,6 +18,7 @@ public class Foto implements Serializable {
     public int numObra;
     public int numMedicao;
     public int angulo;
+    public ByteArrayOutputStream imagem;
 
     public Foto() {
     }
