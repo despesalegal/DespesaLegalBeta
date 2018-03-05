@@ -9,4 +9,5 @@
     <string name="bt_meio">Meio</string>
     <string name="bt_fim">Fim</string>
     <string name="bt_inicio">Inicio</string>
+    <string name="desc_imgview">imageview</string>
 </resources>
