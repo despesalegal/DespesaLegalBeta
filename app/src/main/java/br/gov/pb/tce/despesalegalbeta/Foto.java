@@ -20,6 +20,8 @@ public class Foto implements Serializable {
     public int angulo;
     public ByteArrayOutputStream imagem;
 
+    private int teste;
+
     public Foto() {
     }
 
