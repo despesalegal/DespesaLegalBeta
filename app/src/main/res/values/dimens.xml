@@ -1,6 +1,3 @@
 <resources>
-    <dimen name="fab_margin">16dp</dimen>
     <dimen name="padding_5dp">5dp</dimen>
-    <dimen name="dim_largura_bt_menu">200dp</dimen>
-    <dimen name="dim_altura_bt_menu">130dp</dimen>
 </resources>
