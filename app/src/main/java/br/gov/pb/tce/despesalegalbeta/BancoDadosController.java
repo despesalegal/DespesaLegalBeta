@@ -30,6 +30,9 @@ public class BancoDadosController {
         cv.put(BancoDadosHelper.COLUNA_LONGITUDE,foto.longitudeFoto);
         cv.put(BancoDadosHelper.COLUNA_ALTITUDE,foto.altitudeFoto);
         cv.put(BancoDadosHelper.COLUNA_DATA_HORA,foto.dataFoto);
+        cv.put(BancoDadosHelper.COLUNA_NUM_OBRA,foto.numObra);
+        cv.put(BancoDadosHelper.COLUNA_NUM_MEDICAO,foto.numMedicao);
+        cv.put(BancoDadosHelper.COLUNA_ANGULO, foto.angulo);
         cv.put(BancoDadosHelper.COLUNA_IMG_CRIP, String.valueOf(foto.imagem));
 
 

@@ -10,4 +10,7 @@
     <string name="bt_fim">Fim</string>
     <string name="bt_inicio">Inicio</string>
     <string name="desc_imgview">imageview</string>
+    <string name="txt_nobra">Número da Obra:</string>
+    <string name="ex_nobra">ex: 00012018</string>
+    <string name="txt_nmed">Número da medição:</string>
 </resources>

@@ -15,8 +15,8 @@ public class Foto implements Serializable {
     public String longitudeFoto;
     public String altitudeFoto;
     public String dataFoto;
-    public int numObra;
-    public int numMedicao;
+    public String numObra;
+    public String numMedicao;
     public int angulo;
     public ByteArrayOutputStream imagem;
 
@@ -38,7 +38,7 @@ public class Foto implements Serializable {
 
     public Foto(long id, String nomeFoto,String latitudeFoto,
                 String longitudeFoto, String altitudeFoto,
-                String dataFoto, int numObra, int numMedicao, int angulo){
+                String dataFoto, String numObra, String numMedicao, int angulo){
         this.id = id;
         this.nomeFoto = nomeFoto;
         this.latitudeFoto = latitudeFoto;

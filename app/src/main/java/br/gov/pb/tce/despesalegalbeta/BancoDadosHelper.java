@@ -41,6 +41,9 @@ public class BancoDadosHelper extends SQLiteOpenHelper {
                 COLUNA_LONGITUDE+" TEXT, "+
                 COLUNA_ALTITUDE+" TEXT, "+
                 COLUNA_DATA_HORA+" TEXT, "+
+                COLUNA_ANGULO+" INTEGER, "+
+                COLUNA_NUM_OBRA+" TEXT, "+
+                COLUNA_NUM_MEDICAO+" TEXT, "+
                 COLUNA_IMG_CRIP+" BLOB )" );
 
     }

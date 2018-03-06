@@ -14,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -36,7 +37,10 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     private FirebaseAuth firebaseAuth;
     static final int REQUEST_IMAGE_CAPTURE = 1;
     private ImageView botaoSair, photo;
-    private Button botaoCamera;
+    private Button btInicio, btMeio, btFim;
+    private EditText campoObra, campoMedicao;
+    private static String Obra , Medicao;
+
 
     //variaveis de localização
     private GoogleApiClient googleApiClient;
@@ -69,7 +73,11 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         //instancia demais objetos
         photo = (ImageView) findViewById(R.id.photo);
         botaoSair = (ImageView) findViewById(R.id.btSairID);
-        botaoCamera = (Button) findViewById(R.id.bt_inicioID);
+        btInicio = (Button) findViewById(R.id.bt_inicioID);
+        btMeio = (Button) findViewById(R.id.bt_meioID);
+        btFim = (Button) findViewById(R.id.bt_fimID);
+        campoObra = (EditText) findViewById(R.id.campo_numObraID);
+        campoMedicao = (EditText) findViewById(R.id.campo_numMedID);
 
         bancoDadosController = new BancoDadosController(this);
 
@@ -82,10 +90,27 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
             }
         });
 
-        botaoCamera.setOnClickListener(new View.OnClickListener() {
+        btInicio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dispatchTakePictureIntent();
+                foto.angulo = 0;
+            }
+        });
+
+        btMeio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dispatchTakePictureIntent();
+                foto.angulo = 1;
+            }
+        });
+
+        btFim.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dispatchTakePictureIntent();
+                foto.angulo = 2;
             }
         });
 
@@ -115,8 +140,12 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
+            Obra = "Obra " + campoObra.getText().toString();
+            Medicao = "Medicao " + campoMedicao.getText().toString();
             SaveImage(imageBitmap);
             converteFoto(imageBitmap);
+            foto.numObra = Obra;
+            foto.numMedicao = Medicao;
             bancoDadosController.salvar(foto);
 
         }
@@ -124,7 +153,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
     private static String SaveImage(Bitmap imageBitmap) {
         String root = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).toString();
-        File myDir = new File(root + "/Despesa Legal");
+        File myDir = new File(root + "/Despesa Legal/"+Obra+"/"+Medicao);
         if (!myDir.exists())
             myDir.mkdirs();
         nomeArquivo =  "IMG_" + dataFormatada + ".jpg";
